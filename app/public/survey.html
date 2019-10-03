@@ -170,7 +170,8 @@
                 </form>
             </div>
         </div>
-
+        
+        <!-- api link and github repo link -->
         <div class="row">
             <div class="col-sm">
                 <hr class="my-4">
@@ -181,9 +182,27 @@
         </div>
     </div>
 
-
-
-
+    <!-- modal form for matching friend -->
+    <div id="matchModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Best Match</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h2 id="matchName">Emma</h2>
+                    <img id="matchPhoto" height="400" width="400"
+                        src="https://media.gettyimages.com/photos/cosmos-flower-picture-id184861138?s=612x612">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -201,9 +220,8 @@
             event.preventDefault();
             var scores = [];
 
-            for (var i=1; i<=10; i++)
-            {
-                scores.push($("#q"+i).val().trim());
+            for (var i = 1; i <= 10; i++) {
+                scores.push(parseInt($("#q" + i).val().trim()));
             }
 
             var newFriend = {
@@ -212,11 +230,11 @@
                 scores: scores
             };
 
-           
             $.post("/api/friends", newFriend)
                 .then(function (data) {
-                    console.log(data);
-                    alert("Finding matching friend...");
+                    $("#matchName").text(data.name);
+                    $("#matchPhoto").attr("src", data.photo);
+                    $("#matchModal").modal();
                 });
         });
     </script>
