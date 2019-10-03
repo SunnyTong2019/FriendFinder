@@ -6,9 +6,14 @@ module.exports = function (app) {
         res.sendFile(path.join(__dirname, "../public/home.html"));
     });
 
-    app.get("/survey", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/survey.html"));
-    });
+    app.get("/:page", function (req, res) {
+        var page = req.params.page;
 
+        if (page === "survey") { res.sendFile(path.join(__dirname, "../public/survey.html")); }
+        else {
+            res.sendFile(path.join(__dirname, "../public/home.html"));
+        }
+    });
+    
 };
 
