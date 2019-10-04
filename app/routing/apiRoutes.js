@@ -3,23 +3,27 @@ var friends = require("../data/friends.js");
 module.exports = function (app) {
 
     app.get("/api/friends", function (req, res) {
-        return res.json(friends);
+        res.json(friends);
     });
 
     app.post("/api/friends", function (req, res) {
-        var newFriend = req.body;
+        var scores = req.body.scores.map(item => parseInt(item));
 
         var diff = [];
 
         for (var i = 0; i < friends.length; i++) {
-            diff.push(checkDiff(friends[i].scores, newFriend.scores));
+            diff.push(checkDiff(friends[i].scores, scores));
         }
 
         var index = diff.indexOf(Math.min(...diff));
 
         res.json(friends[index]);
 
-        friends.push(newFriend);
+        friends.push({
+            "name": req.body.name,
+            "photo": req.body.photo,
+            "scores": scores
+        });
     });
 
     function checkDiff(arr1, arr2) {
