@@ -8,6 +8,7 @@ The app will then display the name and picture of the user with the best overall
 Front End is created using HTML and JavaScript along with below libraries:
  * Bootstrap
  * jQuery
+
 Back End is created using Node.js along with below npm packages:
  * express
 
