@@ -1,7 +1,7 @@
 var friends = [
     {
-        "name": "Ahmed",
-        "photo": "https://images.unsplash.com/photo-1541093113199-a2e9d84e903f?ixlib=rb-1.2.1&w=1000&q=80",
+        "name": "Jon Snow",
+        "photo": "https://www.indiewire.com/wp-content/uploads/2019/04/Helen-Sloan-HBO-4-copy.jpg?w=780",
         "scores": [
             5,
             1,
@@ -16,15 +16,31 @@ var friends = [
         ]
     },
     {
-        "name": "Emma",
-        "photo": "https://cdn.pixabay.com/photo/2018/10/30/16/06/water-lily-3784022__340.jpg",
+        "name": "Arya Stark",
+        "photo": "https://vignette.wikia.nocookie.net/gameofthrones/images/b/be/AryaShipIronThrone.PNG",
         "scores": [
             1,
             1,
             4,
-            4,
+            2,
             3,
             1,
+            1,
+            3,
+            4,
+            5
+        ]
+    },
+    {
+        "name": "Daenerys Targaryen",
+        "photo": "https://kiss100.s3.amazonaws.com/wp-content/uploads/2019/03/Screen-Shot-2019-03-22-at-9.11.43-AM.png",
+        "scores": [
+            3,
+            2,
+            5,
+            4,
+            3,
+            2,
             2,
             5,
             4,
