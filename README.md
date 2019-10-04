@@ -13,7 +13,7 @@ Back End is created using Node.js along with below npm packages:
 
 
 ## Deployed Link
-
+https://thawing-journey-72695.herokuapp.com/
 
 
 ## Contributor
