@@ -36,7 +36,7 @@
                         <h2>Question 1</h2>
                         <label for="q1">Your mind is always buzzing with unexplored ideas and plans.</label>
                         <select id="q1" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -50,7 +50,7 @@
                         <label for="q2">Generally speaking, you rely more on your experience than your
                             imagination.</label>
                         <select id="q2" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -64,7 +64,7 @@
                         <label for="q3">You find it easy to stay relaxed and focused even when there is some
                             pressure.</label>
                         <select id="q3" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -77,7 +77,7 @@
                         <h2>Question 4</h2>
                         <label for="q4">You rarely do something just out of sheer curiosity.</label>
                         <select id="q4" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -90,7 +90,7 @@
                         <h2>Question 5</h2>
                         <label for="q5">People can rarely upset you.</label>
                         <select id="q5" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -103,7 +103,7 @@
                         <h2>Question 6</h2>
                         <label for="q6">It is often difficult for you to relate to other people’s feelings.</label>
                         <select id="q6" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -117,7 +117,7 @@
                         <label for="q7">In a discussion, truth should be more important than people’s
                             sensitivities.</label>
                         <select id="q7" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -130,7 +130,7 @@
                         <h2>Question 8</h2>
                         <label for="q8">You rarely get carried away by fantasies and ideas.</label>
                         <select id="q8" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -144,7 +144,7 @@
                         <label for="q9">You think that everyone’s views should be respected regardless of whether they
                             are supported by facts or not.</label>
                         <select id="q9" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -157,7 +157,7 @@
                         <h2>Question 10</h2>
                         <label for="q10">You feel more energetic after spending time with a group of people.</label>
                         <select id="q10" class="form-control">
-                            <option selected>Select an Option</option>
+                            <option value="">Select an Option</option>
                             <option value="1">1 (Strongly Disagree)</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -170,7 +170,7 @@
                 </form>
             </div>
         </div>
-        
+
         <!-- api link and github repo link -->
         <div class="row">
             <div class="col-sm">
@@ -216,26 +216,50 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-        $("#submit-btn").on("click", function (event) {
-            event.preventDefault();
-            var scores = [];
 
-            for (var i = 1; i <= 10; i++) {
-                scores.push(parseInt($("#q" + i).val().trim()));
+        $("#submit-btn").on("click", function (event) {
+
+            event.preventDefault();
+
+            var name = $("#name").val().trim();
+            var photo = $("#photo").val().trim();
+
+            function checkScores() {
+                var scores = [];
+
+                for (var i = 1; i <= 10; i++) {
+                    var score = $("#q" + i).val().trim();
+
+                    if (score) {
+                        scores.push(score);
+                    } else { return false; }
+                }
+                return scores;
             }
 
-            var newFriend = {
-                name: $("#name").val().trim(),
-                photo: $("#photo").val().trim(),
-                scores: scores
-            };
+            var scores = checkScores();
 
-            $.post("/api/friends", newFriend)
-                .then(function (data) {
-                    $("#matchName").text(data.name);
-                    $("#matchPhoto").attr("src", data.photo);
-                    $("#matchModal").modal();
-                });
+            if (!name) {
+                alert("Please provide a name!");
+            } else if (!photo) {
+                alert("Please provide a photo!");
+            } else if (!scores) {
+                alert("Please complete all the questions!");
+            } else {
+
+                var newFriend = {
+                    name: name,
+                    photo: photo,
+                    scores: scores
+                };
+
+                $.post("/api/friends", newFriend)
+                    .then(function (data) {
+                        $("#matchName").text(data.name);
+                        $("#matchPhoto").attr("src", data.photo);
+                        $("#matchModal").modal();
+                    });
+            }
         });
     </script>
 </body>
